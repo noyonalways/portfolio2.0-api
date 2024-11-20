@@ -1,6 +1,6 @@
 {
   "name": "portfolio2.0-api",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "ExpressJS and TypeScript Starter Project",
   "main": "./dist/server.js",
   "scripts": {
