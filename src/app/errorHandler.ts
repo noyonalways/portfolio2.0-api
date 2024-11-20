@@ -6,7 +6,7 @@ import {
   handleMongooseValidationError,
   handleZodError,
 } from "@/errors";
-import { TErrorMessages } from "@/interface/error";
+import { TErrorSources } from "@/interface/error";
 import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
 import { JsonWebTokenError } from "jsonwebtoken";
@@ -26,7 +26,7 @@ const notFound = (_req: Request, res: Response, _next: NextFunction) => {
 const global: ErrorRequestHandler = (error, _req, res, _next) => {
   let statusCode = 500;
   let message = "something went wrong";
-  let errorMessages: TErrorMessages = [
+  let errorSources: TErrorSources = [
     {
       path: "",
       message: "something went wrong",
@@ -38,29 +38,29 @@ const global: ErrorRequestHandler = (error, _req, res, _next) => {
 
     statusCode = simplifiedError.statusCode;
     message = simplifiedError.message;
-    errorMessages = simplifiedError.errorMessages;
+    errorSources = simplifiedError.errorSources;
   } else if (error?.name === "ValidationError") {
     const simplifiedError = handleMongooseValidationError(error);
 
     statusCode = simplifiedError.statusCode;
     message = simplifiedError.message;
-    errorMessages = simplifiedError.errorMessages;
+    errorSources = simplifiedError.errorSources;
   } else if (error?.name === "CastError") {
     const simplifiedError = handleMongooseCastError(error);
 
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
-    errorMessages = simplifiedError?.errorMessages;
+    errorSources = simplifiedError?.errorSources;
   } else if (error?.code === 11000) {
     const simplifiedError = handleMongooseDuplicateIdError(error);
 
     statusCode = simplifiedError.statusCode;
     message = simplifiedError.message;
-    errorMessages = simplifiedError.errorMessages;
+    errorSources = simplifiedError.errorSources;
   } else if (error instanceof JsonWebTokenError) {
     statusCode = 401;
     message = error.name;
-    errorMessages = [
+    errorSources = [
       {
         path: "",
         message: error.message,
@@ -69,7 +69,7 @@ const global: ErrorRequestHandler = (error, _req, res, _next) => {
   } else if (error instanceof AppError) {
     statusCode = error.statusCode;
     message = error.message;
-    errorMessages = [
+    errorSources = [
       {
         path: "",
         message: error.message,
@@ -77,7 +77,7 @@ const global: ErrorRequestHandler = (error, _req, res, _next) => {
     ];
   } else if (error instanceof Error) {
     message = error.message;
-    errorMessages = [
+    errorSources = [
       {
         path: "",
         message: error.message,
@@ -87,8 +87,9 @@ const global: ErrorRequestHandler = (error, _req, res, _next) => {
 
   return res.status(statusCode).json({
     success: false,
+    statusCode,
     message,
-    errorMessages,
+    errorSources,
     stack: config.NODE_ENV === "development" ? error.stack : null,
     // error,
   });

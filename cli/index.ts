@@ -18,6 +18,7 @@ program
       { name: `${module}.service.ts`, content: "/* Service content */" },
       { name: `${module}.validation.ts`, content: "/* Validation content */" },
       { name: `${module}.model.ts`, content: "/* Model content */" },
+      { name: `${module}.interface.ts`, content: "/* Interface content */" },
     ];
 
     // Ensure the module directory exists
