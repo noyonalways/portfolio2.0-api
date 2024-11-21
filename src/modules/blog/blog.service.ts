@@ -1,6 +1,7 @@
 import { PaginatedQueryBuilder, SingleDocQueryBuilder } from "@/builders";
 import { AppError } from "@/errors";
 import httpStatus from "http-status";
+import Category from "../category/category.model";
 import { BLOG_STATUS, DefaultFields, SearchableFields } from "./blog.constant";
 import { IBlog } from "./blog.interface";
 import Blog from "./blog.model";
@@ -9,7 +10,14 @@ const create = async (payload: IBlog) => {
   payload.slug = await Blog.generateSlug(payload.title);
   payload.status = "published";
 
-  return Blog.create({ ...payload });
+  const category = await Category.findById(payload.category);
+  if (!category) {
+    throw new AppError(httpStatus.NOT_FOUND, "Category not found");
+  }
+
+  return (await Blog.create({ ...payload, category: category._id })).populate(
+    "category",
+  );
 };
 
 const getAll = async (query: Record<string, unknown>) => {
