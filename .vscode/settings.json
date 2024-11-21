@@ -11,5 +11,6 @@
     "Noyon",
     "populatable",
     "Rahman"
-  ]
+  ],
+  "prettier.prettierPath": "./node_modules/prettier"
 }

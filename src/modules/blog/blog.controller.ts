@@ -25,6 +25,18 @@ const getAll = catchAsync(async (req, res) => {
   });
 });
 
+const getOne = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await blogService.getOne(id, req.query);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Blog retrieved successfully",
+    data: result,
+  });
+});
+
 const updateOne = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await blogService.updateOne(id, req.body);
@@ -54,4 +66,5 @@ export default {
   getAll,
   updateOne,
   deleteOne,
+  getOne,
 };

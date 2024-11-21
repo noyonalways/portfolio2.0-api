@@ -8,6 +8,7 @@ export const BlogStatus: IBlogStatus[] = [
 ];
 export const BlogContentType: IBlogContentType[] = ["mdx", "text", "string"];
 export const SearchableFields = ["title", "brief", "content"];
+export const DefaultFields = ["title", "brief", "slug", "cover"];
 
 export const BLOG_STATUS = {
   PUBLISHED: "published",

@@ -1,4 +1,4 @@
-import QueryBuilder from "@/builder";
+import { PaginatedQueryBuilder } from "@/builders";
 import { AppError } from "@/errors";
 import httpStatus from "http-status";
 import { SearchableFields } from "./category.constant";
@@ -10,7 +10,11 @@ const create = async (payload: ICategory) => {
 };
 
 const getAll = async (query: Record<string, unknown>) => {
-  const queryBuilder = new QueryBuilder(Category.find(), query, "/categories");
+  const queryBuilder = new PaginatedQueryBuilder(
+    Category.find(),
+    query,
+    "/categories",
+  );
 
   const result = await queryBuilder
     .filter() // Apply filter based on query

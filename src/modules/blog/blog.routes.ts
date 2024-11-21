@@ -12,6 +12,7 @@ blogRouter
 
 blogRouter
   .route("/:id")
+  .get(blogController.getOne)
   .delete(blogController.deleteOne)
   .patch(validateRequest(blogValidation.update), blogController.updateOne);
 

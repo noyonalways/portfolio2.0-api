@@ -1,7 +1,7 @@
-import QueryBuilder from "@/builder";
+import { PaginatedQueryBuilder, SingleDocQueryBuilder } from "@/builders";
 import { AppError } from "@/errors";
 import httpStatus from "http-status";
-import { BLOG_STATUS, SearchableFields } from "./blog.constant";
+import { BLOG_STATUS, DefaultFields, SearchableFields } from "./blog.constant";
 import { IBlog } from "./blog.interface";
 import Blog from "./blog.model";
 
@@ -13,13 +13,13 @@ const create = async (payload: IBlog) => {
 };
 
 const getAll = async (query: Record<string, unknown>) => {
-  const queryBuilder = new QueryBuilder(Blog.find(), query, "/blogs");
+  const queryBuilder = new PaginatedQueryBuilder(Blog.find(), query, "/blogs");
 
   const result = await queryBuilder
     .filter() // Apply filter based on query
     .search(SearchableFields) // Search in specified fields
     .sort() // Apply sorting
-    .selectFields() // Select specified fields
+    .selectFields(DefaultFields) // Select specified fields
     .populateFields(["category"]) // Dynamically populate fields
     .paginate() // Apply pagination
     .execute(); // Execute the query and get results
@@ -27,8 +27,51 @@ const getAll = async (query: Record<string, unknown>) => {
   return result;
 };
 
+/* const getOne = async (id: string, query: Record<string, unknown>) => {
+  // Determine fields to select based on 'fields' or default to minimal fields
+  const defaultFields = "title brief slug cover";
+  const fieldsToSelect = query.expand
+    ? "" // If 'expand' is true, select all fields
+    : query.fields
+      ? (query.fields as string).split(",").join(" ") // Use specified fields if provided
+      : defaultFields; // Default fields if no 'fields' or 'expand'
+
+  // Check if 'category' is included in the fields and populate accordingly
+  const populateOptions =
+    query.expand ||
+    (query.fields && (query.fields as string).includes("category"))
+      ? "category"
+      : "";
+
+  // Build the query with the specified fields and conditional population
+  const blogQuery = Blog.findById(id).select(fieldsToSelect);
+  if (populateOptions) {
+    blogQuery.populate(populateOptions);
+  }
+
+  const blog = await blogQuery;
+
+  if (!blog) {
+    throw new AppError(httpStatus.NOT_FOUND, "Blog not found");
+  }
+
+  return blog;
+}; */
+
+const getOne = async (id: string, query: Record<string, unknown>) => {
+  const blog = await new SingleDocQueryBuilder(Blog, id, query)
+    .selectFields(DefaultFields) // Set the fields to select
+    .populate(["category"]) // Populate the category field if necessary
+    .execute(); // Execute the query
+
+  if (!blog) {
+    throw new AppError(httpStatus.NOT_FOUND, "Blog not found");
+  }
+
+  return blog;
+};
+
 const updateOne = async (id: string, payload: IBlog) => {
-  // Extract tags from the payload
   const { tags, ...restOfPayload } = payload;
 
   const updatedBlog = await Blog.findByIdAndUpdate(
@@ -67,6 +110,7 @@ const deleteOne = async (id: string) => {
 export default {
   create,
   getAll,
+  getOne,
   updateOne,
   deleteOne,
 };

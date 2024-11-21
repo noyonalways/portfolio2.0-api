@@ -4,7 +4,7 @@ import {
   IQueryOptions,
 } from "@/interface/builder.interface";
 
-class QueryBuilder<T> {
+class PaginatedQueryBuilder<T> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private query: any;
   private options: IQueryOptions;
@@ -59,11 +59,18 @@ class QueryBuilder<T> {
   }
 
   // Apply field selection
-  selectFields() {
+  selectFields(defaultFields?: string[]) {
+    // If specific fields are provided in the query options, use them
     if (this.options.fields) {
       const fields = this.options.fields.split(",").join(" ");
       this.query = this.query.select(fields);
     }
+    // If defaultFields are passed as an argument, use them
+    else if (defaultFields && defaultFields.length > 0) {
+      const fields = defaultFields.join(" ");
+      this.query = this.query.select(fields);
+    }
+
     return this;
   }
 
@@ -150,4 +157,4 @@ class QueryBuilder<T> {
   }
 }
 
-export default QueryBuilder;
+export default PaginatedQueryBuilder;
