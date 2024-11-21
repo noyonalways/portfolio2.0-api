@@ -10,4 +10,9 @@ blogRouter
   .get(blogController.getAll)
   .post(validateRequest(blogValidation.create), blogController.create);
 
+blogRouter
+  .route("/:id")
+  .delete(blogController.deleteOne)
+  .patch(validateRequest(blogValidation.update), blogController.updateOne);
+
 export default blogRouter;

@@ -25,7 +25,33 @@ const getAll = catchAsync(async (req, res) => {
   });
 });
 
+const updateOne = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await blogService.updateOne(id, req.body);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Blog updated successfully",
+    data: result,
+  });
+});
+
+const deleteOne = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await blogService.deleteOne(id);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Blog deleted successfully",
+    data: result,
+  });
+});
+
 export default {
   create,
   getAll,
+  updateOne,
+  deleteOne,
 };

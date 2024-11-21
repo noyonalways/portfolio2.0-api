@@ -92,6 +92,27 @@ const blogSchema = new Schema<IBlog, IBlogModel>(
   },
 );
 
+// mongoose pre query middleware
+blogSchema.pre("find", function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+blogSchema.pre("findOne", function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+blogSchema.pre("findOneAndUpdate", function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
+blogSchema.pre("findOneAndDelete", function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
 blogSchema.statics.generateSlug = async function (title: string) {
   const baseSlug = await slugify(title, {
     lower: true,

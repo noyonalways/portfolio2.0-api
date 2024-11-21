@@ -1,5 +1,7 @@
 import QueryBuilder from "@/builder";
-import { SearchableFields } from "./blog.constant";
+import { AppError } from "@/errors";
+import httpStatus from "http-status";
+import { BLOG_STATUS, SearchableFields } from "./blog.constant";
 import { IBlog } from "./blog.interface";
 import Blog from "./blog.model";
 
@@ -25,7 +27,46 @@ const getAll = async (query: Record<string, unknown>) => {
   return result;
 };
 
+const updateOne = async (id: string, payload: IBlog) => {
+  // Extract tags from the payload
+  const { tags, ...restOfPayload } = payload;
+
+  const updatedBlog = await Blog.findByIdAndUpdate(
+    id,
+    {
+      ...restOfPayload,
+      ...(tags && {
+        $addToSet: { tags: { $each: tags } },
+      }),
+    },
+    {
+      new: true,
+      runValidators: true,
+    },
+  );
+
+  if (!updatedBlog) {
+    throw new AppError(httpStatus.NOT_FOUND, "Blog not found");
+  }
+
+  return updatedBlog;
+};
+
+const deleteOne = async (id: string) => {
+  const blog = await Blog.findByIdAndUpdate(
+    id,
+    { isDeleted: true, status: BLOG_STATUS.DELETED },
+    { new: true, runValidators: true },
+  );
+  if (!blog) {
+    throw new AppError(httpStatus.NOT_FOUND, "Blog not found");
+  }
+  return blog;
+};
+
 export default {
   create,
   getAll,
+  updateOne,
+  deleteOne,
 };

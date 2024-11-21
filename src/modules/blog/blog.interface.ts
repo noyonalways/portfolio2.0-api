@@ -1,7 +1,7 @@
 import { Document, Model, Types } from "mongoose";
 
 export type IBlogContentType = "mdx" | "text" | "string";
-export type IBlogStatus = "published" | "draft" | "unlisted";
+export type IBlogStatus = "published" | "draft" | "unlisted" | "deleted";
 export interface IBlogAuthor {
   name: string;
   email: string;
