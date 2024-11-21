@@ -6,7 +6,7 @@ const router: Router = Router();
 
 router.get("/", (_req: Request, res: Response) => {
   res.status(200).json({
-    message: "Hello World!",
+    message: "Noyon Rahman | Portfolio 2.0",
   });
 });
 
