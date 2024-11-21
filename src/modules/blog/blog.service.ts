@@ -13,7 +13,11 @@ const create = async (payload: IBlog) => {
 };
 
 const getAll = async (query: Record<string, unknown>) => {
-  const queryBuilder = new PaginatedQueryBuilder(Blog.find(), query, "/blogs");
+  const queryBuilder = new PaginatedQueryBuilder(
+    Blog.find(),
+    query,
+    "/api/v1/blogs",
+  );
 
   const result = await queryBuilder
     .filter() // Apply filter based on query

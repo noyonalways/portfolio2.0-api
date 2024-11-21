@@ -1,12 +1,12 @@
-import { IBlogContentType, IBlogStatus } from "./blog.interface";
+import { TBlogContentType, TBlogStatus } from "./blog.interface";
 
-export const BlogStatus: IBlogStatus[] = [
+export const BlogStatus: TBlogStatus[] = [
   "draft",
   "published",
   "unlisted",
   "deleted",
 ];
-export const BlogContentType: IBlogContentType[] = ["mdx", "text", "string"];
+export const BlogContentType: TBlogContentType[] = ["mdx", "text", "string"];
 export const SearchableFields = ["title", "brief", "content"];
 export const DefaultFields = ["title", "brief", "slug", "cover"];
 

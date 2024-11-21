@@ -38,7 +38,7 @@ const create = z.object({
       contentType: z.enum([...BlogContentType] as [string, ...string[]]),
       tags: z.array(z.string(), {
         required_error: "Tags is required",
-        invalid_type_error: "Tags must be string",
+        invalid_type_error: "Tags must be an array of string",
       }),
       category: z
         .string({
