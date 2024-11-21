@@ -1,5 +1,5 @@
-export { default as AppError } from "./AppError";
-export { default as handleMongooseCastError } from "./handleMongooseCastError";
-export { default as handleMongooseDuplicateIdError } from "./handleMongooseDuplicateIdError";
-export { default as handleMongooseValidationError } from "./handleMongooseValidationError";
-export { default as handleZodError } from "./handleZodError";
+export { default as AppError } from "./app-error";
+export { default as handleMongooseCastError } from "./mongoose-cast-error";
+export { default as handleMongooseDuplicateIdError } from "./mongoose-duplicate-id-error";
+export { default as handleMongooseValidationError } from "./mongoose-validation-error";
+export { default as handleZodError } from "./zod-validation-error";
