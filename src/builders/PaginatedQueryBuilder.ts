@@ -31,7 +31,15 @@ class PaginatedQueryBuilder<T> {
     const queryObj = { ...this.options };
 
     // Define the fields to exclude from the filter
-    const excludeFields = ["search", "sort", "limit", "page", "fields"];
+    const excludeFields = [
+      "search",
+      "sort",
+      "limit",
+      "page",
+      "fields",
+      "sortBy",
+      "sortType",
+    ];
 
     excludeFields.forEach((el) => delete queryObj[el]);
     this.query = this.query.find(queryObj);

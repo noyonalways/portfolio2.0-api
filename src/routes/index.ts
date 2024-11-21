@@ -2,6 +2,7 @@ import authRouter from "@/modules/auth/auth.routes";
 import blogRouter from "@/modules/blog/blog.routes";
 import categoryRouter from "@/modules/category/category.routes";
 import projectRouter from "@/modules/project/project.routes";
+import skillRouter from "@/modules/skill/skill.routes";
 import { Router } from "express";
 
 const router: Router = Router();
@@ -22,6 +23,10 @@ const moduleRoutes: IModuleRoute[] = [
   {
     path: "/projects",
     routes: projectRouter,
+  },
+  {
+    path: "/skills",
+    routes: skillRouter,
   },
 ];
 

@@ -13,7 +13,7 @@ const getAll = async (query: Record<string, unknown>) => {
   const queryBuilder = new PaginatedQueryBuilder(
     Category.find(),
     query,
-    "/api/v1categories",
+    "/api/v1/categories",
   );
 
   const result = await queryBuilder
