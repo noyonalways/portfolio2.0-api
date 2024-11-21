@@ -1,5 +1,5 @@
+import { TGenericErrorResponse } from "@/interface/error.interface";
 import mongoose from "mongoose";
-import { TGenericErrorResponse } from "../interface/error";
 
 const handleMongooseValidationError = (
   error: mongoose.Error.ValidationError,
@@ -23,7 +23,7 @@ const handleMongooseValidationError = (
   return {
     statusCode,
     message: "Validation Error",
-    errorMessages,
+    errorSources: errorMessages,
   };
 };
 

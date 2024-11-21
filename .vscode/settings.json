@@ -8,7 +8,10 @@
   },
   "files.autoSave": "off",
   "cSpell.words": [
+    "fieldname",
     "Noyon",
+    "populatable",
     "Rahman"
-  ]
+  ],
+  "prettier.prettierPath": "./node_modules/prettier"
 }
