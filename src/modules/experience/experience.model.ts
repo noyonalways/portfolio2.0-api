@@ -2,7 +2,7 @@ import { model, Schema } from "mongoose";
 import { JobTypes, RoleTypes } from "./experience.constant";
 import { IExperience, IJobLink, IJobLocation } from "./experience.interface";
 
-const jobLinksSchema = new Schema<IJobLink>({
+const jobLinkSchema = new Schema<IJobLink>({
   deploymentLink: {
     type: String,
     required: [true, "Link is required"],
@@ -10,7 +10,7 @@ const jobLinksSchema = new Schema<IJobLink>({
   },
   github: {
     type: String,
-    required: [true, "Title is required"],
+    default: null,
     trim: true,
   },
 });
@@ -52,7 +52,7 @@ const experienceSchema = new Schema<IExperience>({
   },
   endDate: {
     type: Date,
-    required: [true, "End date is required"],
+    default: null,
   },
   description: {
     type: String,
@@ -63,6 +63,10 @@ const experienceSchema = new Schema<IExperience>({
     type: Boolean,
     default: false,
     required: [true, "Is current job is required"],
+  },
+  skillsDeveloped: {
+    type: [String],
+    trim: true,
   },
   jobType: {
     type: String,
@@ -81,7 +85,7 @@ const experienceSchema = new Schema<IExperience>({
     required: [true, "Role type is required"],
   },
   links: {
-    type: [jobLinksSchema],
+    type: [jobLinkSchema],
   },
 });
 
