@@ -67,6 +67,25 @@ class QueryBuilder<T> {
     return this;
   }
 
+  // Dynamically apply populate based on fields
+  populateFields(populatableFields: string[]) {
+    if (this.options.fields) {
+      // Populate only the specified fields
+      const requestedFields = this.options.fields.split(",");
+      populatableFields.forEach((field) => {
+        if (requestedFields.includes(field)) {
+          this.query = this.query.populate(field);
+        }
+      });
+    } else {
+      // Populate all fields by default
+      populatableFields.forEach((field) => {
+        this.query = this.query.populate(field);
+      });
+    }
+    return this;
+  }
+
   // Apply pagination
   paginate() {
     const skip = (this.pagination.page - 1) * this.pagination.limit;

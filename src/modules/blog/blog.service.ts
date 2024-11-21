@@ -18,6 +18,7 @@ const getAll = async (query: Record<string, unknown>) => {
     .search(SearchableFields) // Search in specified fields
     .sort() // Apply sorting
     .selectFields() // Select specified fields
+    .populateFields(["category"]) // Dynamically populate fields
     .paginate() // Apply pagination
     .execute(); // Execute the query and get results
 
