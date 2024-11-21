@@ -45,7 +45,7 @@ const getOne = async (id: string, query: Record<string, unknown>) => {
 };
 
 const updateOne = async (id: string, payload: IProject) => {
-  payload.slug = await Project.generateSlug(payload.title);
+  payload.slug = payload.title && (await Project.generateSlug(payload.title));
   const { features, ...restOfPayload } = payload;
 
   const updatedBlog = await Project.findByIdAndUpdate(
