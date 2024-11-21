@@ -1,11 +1,10 @@
 import config from "@/config";
+import { IUserRole } from "@/modules/user/user.interface";
 import { catchAsync, sendResponse } from "@/utils";
 import httpStatus from "http-status";
 import jwt, { JwtPayload } from "jsonwebtoken";
 
-type TUserRole = "admin" | "user";
-
-const auth = (...requiredRoles: TUserRole[]) => {
+const auth = (...requiredRoles: IUserRole[]) => {
   return catchAsync(async (req, res, next) => {
     const token = req.headers.authorization?.split(" ")[1];
     if (!token) {
