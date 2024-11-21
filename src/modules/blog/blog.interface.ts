@@ -25,5 +25,5 @@ export interface IBlog extends Document {
 }
 
 export interface IBlogModel extends Model<IBlog> {
-  generateSlug(title: string): string;
+  generateSlug(title: string): Promise<string>;
 }

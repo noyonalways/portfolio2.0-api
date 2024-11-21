@@ -13,6 +13,19 @@ const create = catchAsync(async (req, res) => {
   });
 });
 
+const getAll = catchAsync(async (req, res) => {
+  const { data, pagination } = await blogService.getAll(req.query);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Blogs retrieved successfully",
+    data: data,
+    meta: pagination,
+  });
+});
+
 export default {
   create,
+  getAll,
 };

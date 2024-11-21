@@ -93,7 +93,7 @@ const blogSchema = new Schema<IBlog, IBlogModel>(
 );
 
 blogSchema.statics.generateSlug = async function (title: string) {
-  const baseSlug = slugify(title, {
+  const baseSlug = await slugify(title, {
     lower: true,
     trim: true,
     remove: /[*+~.()'"!:@#$%^&\\]/g,

@@ -1,5 +1,8 @@
 import { ZodError } from "zod";
-import { TErrorSources, TGenericErrorResponse } from "../interface/error";
+import {
+  TErrorSources,
+  TGenericErrorResponse,
+} from "../interface/error.interface";
 
 const handleZodError = (error: ZodError): TGenericErrorResponse => {
   const errorMessages: TErrorSources = error.issues.map((issue) => {

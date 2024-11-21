@@ -6,7 +6,7 @@ import {
   handleMongooseValidationError,
   handleZodError,
 } from "@/errors";
-import { TErrorSources } from "@/interface/error";
+import { TErrorSources } from "@/interface/error.interface";
 import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
 import { JsonWebTokenError } from "jsonwebtoken";

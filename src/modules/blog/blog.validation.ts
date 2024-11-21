@@ -40,7 +40,6 @@ const create = z.object({
         required_error: "Tags is required",
         invalid_type_error: "Tags must be string",
       }),
-      status: z.enum([...BlogStatus] as [string, ...string[]]),
       category: z
         .string({
           invalid_type_error: "Category ID must be string",
