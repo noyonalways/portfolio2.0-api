@@ -4,6 +4,7 @@ import categoryRouter from "@/modules/category/category.routes";
 import experienceRouter from "@/modules/experience/experience.routes";
 import projectRouter from "@/modules/project/project.routes";
 import skillRouter from "@/modules/skill/skill.routes";
+import dashboardRouter from "@/modules/dashboard/dashboard.routes";
 import { Router } from "express";
 
 const router: Router = Router();
@@ -32,6 +33,10 @@ const moduleRoutes: IModuleRoute[] = [
   {
     path: "/experiences",
     routes: experienceRouter,
+  },
+  {
+    path: "/dashboard",
+    routes: dashboardRouter,
   },
 ];
 

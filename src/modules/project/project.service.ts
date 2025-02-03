@@ -32,8 +32,8 @@ const getAll = async (query: Record<string, unknown>) => {
   return result;
 };
 
-const getOne = async (id: string, query: Record<string, unknown>) => {
-  const project = await new SingleDocQueryBuilder(Project, id, query)
+const getOne = async (slug: string, query: Record<string, unknown>) => {
+  const project = await new SingleDocQueryBuilder(Project, { slug }, query)
     .selectFields(DefaultFields)
     .execute();
 

@@ -4,7 +4,7 @@ import httpStatus from "http-status";
 import User from "../user/user.model";
 
 const login = async (payload: { email: string; password: string }) => {
-  const user = await User.findOne({ email: payload.email });
+  const user = await User.findOne({ email: payload.email }).select("+password");
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, "User not found");
   }
@@ -32,7 +32,17 @@ const register = () => {
   // Implement registration logic here
 };
 
+// get me
+const getMe = async (userId: string) => {
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new AppError(httpStatus.NOT_FOUND, "User not found");
+  }
+  return user;
+};
+
 export default {
   login,
   register,
+  getMe,
 };

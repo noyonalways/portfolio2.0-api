@@ -8,10 +8,10 @@ class SingleDocQueryBuilder<T extends Document> {
 
   constructor(
     private model: Model<T>,
-    private id: string,
+    private filter: Record<string, string>, // Accept a filter object
     private options: Record<string, unknown>,
   ) {
-    this.query = this.model.findById(this.id); // Initialize with findById for the given model
+    this.query = this.model.findOne(this.filter); // Initialize with findById for the given model
   }
 
   // Set fields to select, accepting an array of fields
