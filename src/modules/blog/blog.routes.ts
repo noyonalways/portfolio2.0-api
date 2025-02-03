@@ -33,9 +33,11 @@ blogRouter
     blogController.create,
   );
 
+// get single blog by the slug
+blogRouter.get("/:slug", blogController.getOne);
+
 blogRouter
   .route("/:id")
-  .get(blogController.getOne)
   .delete(auth("super-admin"), blogController.deleteOne)
   .patch(
     auth("super-admin"),

@@ -44,9 +44,11 @@ projectRouter
     projectController.create,
   );
 
+// get the single project by the slug
+projectRouter.get("/:slug", projectController.getOne);
+
 projectRouter
   .route("/:id")
-  .get(projectController.getOne)
   .delete(auth("super-admin"), projectController.deleteOne)
   .patch(
     auth("super-admin"),

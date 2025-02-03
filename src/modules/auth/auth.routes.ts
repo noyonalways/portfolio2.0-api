@@ -1,4 +1,4 @@
-import { validateRequest } from "@/middlewares";
+import { auth, validateRequest } from "@/middlewares";
 import { Router } from "express";
 import authController from "./auth.controller";
 import authValidation from "./auth.validation";
@@ -15,5 +15,7 @@ authRouter.post(
   validateRequest(authValidation.register),
   authController.register,
 );
+
+authRouter.get("/me", auth("super-admin"), authController.getMe);
 
 export default authRouter;

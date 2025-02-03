@@ -125,9 +125,14 @@ class PaginatedQueryBuilder<T> {
     // console.log("Pagination:", this.pagination);
     // console.log("Options:", this.options);
 
+    const isDeletedFilter = { isDeleted: false };
+
+    // Merge the `isDeleted` filter with the existing query conditions
+    const countQuery = { ...this.query.getQuery(), ...isDeletedFilter };
+
     const [data, total] = await Promise.all([
       this.query.exec(),
-      this.query.model.countDocuments(this.query.getQuery()),
+      this.query.model.countDocuments(countQuery),
     ]);
 
     const totalPage = Math.ceil(total / this.pagination.limit);

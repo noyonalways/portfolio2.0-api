@@ -23,7 +23,20 @@ const register = catchAsync(async (req, res) => {
   });
 });
 
+// get me
+const getMe = catchAsync(async (req, res) => {
+  const result = await authService.getMe(req.user.userId);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: 200,
+    message: "Get me successfully",
+    data: result,
+  });
+});
+
 export default {
   login,
   register,
+  getMe,
 };

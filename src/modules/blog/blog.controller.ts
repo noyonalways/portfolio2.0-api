@@ -26,8 +26,8 @@ const getAll = catchAsync(async (req, res) => {
 });
 
 const getOne = catchAsync(async (req, res) => {
-  const { id } = req.params;
-  const result = await blogService.getOne(id, req.query);
+  const { slug } = req.params;
+  const result = await blogService.getOne(slug, req.query);
 
   sendResponse(res, {
     success: true,

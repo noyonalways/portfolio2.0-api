@@ -1,12 +1,12 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "ES2021",
     "lib": [
       "ES6"
     ],
     "allowJs": true,
-    "module": "CommonJS",
+    "module": "commonjs",
     "outDir": "./dist",
     "esModuleInterop": true,
     "strict": true,
@@ -21,15 +21,17 @@
       "@/*": [
         "./src/*"
       ]
-    }
+    },
+    "rootDir": "./src"
   },
   "files": [
     "./src/interface/index.d.ts"
   ],
   "include": [
-    "src/",
+    "src/**/*",
   ],
   "exclude": [
     "node_modules",
+    "dist"
   ]
 }

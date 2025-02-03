@@ -12,7 +12,15 @@ export const ProjectStatus: TProjectStatus[] = [
 ];
 
 export const SearchableFields = ["title", "brief", "description"];
-export const DefaultFields = ["title", "brief", "slug", "cover", "type"];
+export const DefaultFields = [
+  "title",
+  "brief",
+  "slug",
+  "cover",
+  "type",
+  "frontend",
+  "backend",
+];
 
 export const PROJECT_STATUS = {
   ACTIVE: "active",

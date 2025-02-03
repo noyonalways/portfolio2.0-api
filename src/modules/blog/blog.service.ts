@@ -70,8 +70,8 @@ const getAll = async (query: Record<string, unknown>) => {
   return blog;
 }; */
 
-const getOne = async (id: string, query: Record<string, unknown>) => {
-  const blog = await new SingleDocQueryBuilder(Blog, id, query)
+const getOne = async (slug: string, query: Record<string, unknown>) => {
+  const blog = await new SingleDocQueryBuilder(Blog, { slug: slug }, query)
     .selectFields(DefaultFields) // Set the fields to select
     .populate(["category"]) // Populate the category field if necessary
     .execute(); // Execute the query
