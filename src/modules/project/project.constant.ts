@@ -20,6 +20,7 @@ export const DefaultFields = [
   "type",
   "frontend",
   "backend",
+  "status",
 ];
 
 export const PROJECT_STATUS = {
