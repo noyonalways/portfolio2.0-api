@@ -73,10 +73,14 @@ class PaginatedQueryBuilder<T> {
       const fields = this.options.fields.split(",").join(" ");
       this.query = this.query.select(fields);
     }
-    // If defaultFields are passed as an argument, use them
+    // If defaultFields are passed as an argument and no fields specified in options, use them
     else if (defaultFields && defaultFields.length > 0) {
       const fields = defaultFields.join(" ");
       this.query = this.query.select(fields);
+    }
+    // If no fields specified in options and no defaultFields provided, get all fields
+    else {
+      this.query = this.query.select();
     }
 
     return this;
