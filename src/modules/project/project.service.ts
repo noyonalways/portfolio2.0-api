@@ -25,7 +25,6 @@ const getAll = async (query: Record<string, unknown>) => {
     .filter()
     .search(SearchableFields)
     .sort()
-    .selectFields(DefaultFields)
     .paginate()
     .execute();
 
