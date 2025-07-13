@@ -23,6 +23,8 @@ app.use(
       "http://192.168.0.116:5173",
       "https://admin.noyonrahman.xyz",
       "https://admin-portfolio-noyonalways.vercel.app",
+      "https://noyonrahman.vercel.app",
+      "https://admin-noyonrahman.vercel.app",
     ],
     credentials: true,
     methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
